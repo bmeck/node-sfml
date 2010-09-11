@@ -1,0 +1,36 @@
+SFML Bindings for Node:
+
+Building:
+
+node-waf configure build
+
+Requires:
+
+SFML Shared Libraries (http://www.sfml-dev.org/download.php)
+OpenAL Shared Library (http://connect.creativelabs.com/openal/default.aspx, or http://kcat.strangesoft.net/openal.html)
+libsndfile Shared Libary (http://www.mega-nerd.com/libsndfile/)
+
+Usage:
+
+var sfml = require('nodesfml')
+var music = new sfml.Music()
+var window = new sfml.RenderWindow(sfml.VideoMode.GetDesktopMode(),"my title")
+
+Status (operator overloading is not supported in v8, so manual checks for equality will be required):
+ * 100%
+ 	please report and missing features except operator overloads)
+ * In Progress
+ 	Some supported methods, but not complete (may require other features that are not 100%)
+ * Delayed
+ 	To be done after all In Progress (may be upgraded if enough tickets arise)
+
+sf::Color - 100%
+sf::Image - In Progress
+sf::Joy - In Progress
+sf::Key - In Progress
+sf::Mouse::Buttons - 100%
+sf::Music - 100%
+sf::RenderWindow - Delayed
+sf::Sound::Status - 100%
+sf::Style - 100%
+sf::VideoMode - 100%

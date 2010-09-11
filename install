@@ -1,0 +1,101 @@
+#!/bin/bash
+echo "Automated SFML Installer from source..."
+platform='unknown' ;
+unamestr=`uname` ;
+if [[ "$unamestr" == 'Linux' ]] ; then
+   platform='linux' ;
+elif [["$unamestr" == 'FreeBSD']]; then
+   platform='freebsd' ;
+elif [["$unamestr" == 'Darwin']]; then
+   platform='darwin' ;
+fi
+echo "OS: $platform"
+#not used for now
+processor='unknown' ;
+unamestr=`uname -m`
+if [[ "$unamestr" == 'i686' ]] ; then
+   processor='x86' ;
+elif [["$unamestr" == 'x86_64']] ; then
+   processor='x86_64' ;
+fi
+echo "PROCESSOR: $processor"
+
+if [ ! -x "./deps" ] ; then
+   echo "Making deps directory..."
+   mkdir "deps"
+fi
+cd deps
+if [[ ! "$platform" == 'darwin' ]] ; then
+   #openal
+   if [ ! -x "./openalsoft" ] ; then
+      echo "Downloading OpenALSoft source"
+      curl -o "openalsoft.tar.bz2" "http://kcat.strangesoft.net/openal-releases/openal-soft-1.12.854.tar.bz2" &> /dev/null
+      tar -xvf "openalsoft.tar.bz2" &> /dev/null
+      rm ./*.tar.bz2
+      mv openal-soft*/ openalsoft
+   
+      cd openalsoft/build
+      echo "Making OpenALSoft"
+      cmake ..  &> /dev/null
+      make  &> /dev/null
+      echo "Installing OpenALSoft"
+      sudo make install  &> /dev/null
+      cd ../..
+   else
+      echo "OpenALSoft already exists, remove directory for a fresh compile"
+   fi
+   #libsndfile
+   if [ ! -x "./libsndfile" ] ; then
+      echo "Downloading libsndfile source"
+      curl -o "libsndfile.tar.gz" "http://www.mega-nerd.com/libsndfile/files/libsndfile-1.0.21.tar.gz" &> /dev/null
+      tar -xvf "libsndfile.tar.gz" &> /dev/null
+      rm ./*.tar.gz
+      mv libsndfile*/ libsndfile
+   
+      cd libsndfile
+      echo "Making libsndfile"
+      ./configure &> /dev/null
+      make &> /dev/null
+      echo "Installing libsndfile"
+      sudo make install &> /dev/null
+      cd ..
+   else
+      echo "libsndfile already exists, remove directory for a fresh compile"
+   fi
+fi
+#SFML
+if [ ! -x "./sfml" ] ; then
+   echo "Downloading SFML source"
+   svn checkout "http://sfml.svn.sourceforge.net/svnroot/sfml/tags/1.6" "sfml"  &> /dev/null
+   cd sfml
+   
+   
+   if [[ "$platform" == 'darwin' ]] ; then
+      echo "Installing External Frameworks"
+      if [[ "$processor" == 'x86_64' ]] ; then
+         sudo cp extlibs/bin/x86_64/* /Library/Frameworks
+      else
+         sudo cp extlibs/bin/OpenAL.framework /Library/Frameworks
+         sudo cp extlibs/bin/libsndfile.framework /Library/Frameworks
+      fi
+   fi
+   
+   echo "Making SFML"
+   make &> /dev/null
+   
+   if [[ "$platform" == 'darwin' ]] ; then
+      echo "Installing SFML Frameworks"
+      if [[ "$processor" == 'x86_64' ]] ; then
+         sudo cp lib64/* /Library/Frameworks
+      else
+         sudo cp lib/* /Library/Frameworks
+      fi
+   else
+      echo "Installing SFML"
+      sudo make install &> /dev/null
+   fi
+   cd ../..
+else
+   echo "sfml already exists, remove directory for a fresh compile"
+fi
+./compile

@@ -1,0 +1,18 @@
+{ "name" : "sfml"
+  , "description" : "Node v8 Bindings for SFML"
+  , "version" : "0.0.1"
+  , "author" :
+  { "name" : "bradley meck"
+  , "email" : "bradley.meck@gmail.com"
+  }
+  , "engines" : [ "node >=0.1.102" ] 
+  , "repository" :
+  { "type" : "git"
+  , "url" : "http://github.com/bmeck/node-sfml.git"
+  }
+  , "main" : "lib/nodesfml.node"
+  , "scripts" : {
+  	"preinstall" : "install"
+  	, "update" : "compile"
+  }
+}

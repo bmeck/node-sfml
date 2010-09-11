@@ -1,0 +1,6 @@
+#!/bin/bash
+node-waf clean configure build
+if [ ! -x "./lib" ] ; then
+   mkdir lib
+fi
+cp build/default/* lib/
