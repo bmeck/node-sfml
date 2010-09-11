@@ -266,6 +266,16 @@ Handle<Value> NodeSFMLRenderWindow_Display(const Arguments &args) {
 	return scope.Close(Undefined());
 }
 
+Handle<Value> NodeSFMLRenderWindow_GetWidth(const Arguments &args) {
+	HandleScope scope;
+	Handle<Number> width = Number::New(((sf::RenderWindow*)External::Unwrap(args.Holder()->GetInternalField(0)))->GetHeight());
+	return scope.Close(width);
+}
+Handle<Value> NodeSFMLRenderWindow_GetHeight(const Arguments &args) {
+	HandleScope scope;
+	Handle<Number> height = Number::New(((sf::RenderWindow*)External::Unwrap(args.Holder()->GetInternalField(0)))->GetHeight());
+	return scope.Close(height);
+}
 Handle<Value> NodeSFMLRenderWindow_Draw(const Arguments &args) {
 	HandleScope scope;
 	sf::Sprite sprite = *((sf::Sprite*)args[0]->ToObject()->GetPointerFromInternalField(0));
@@ -429,6 +439,11 @@ Handle<Value> NodeSFMLImage_LoadFromFile(const Arguments &args) {
 	Handle<Boolean> success = Boolean::New(((sf::Image*)args.Holder()->GetPointerFromInternalField(0))->LoadFromFile(*String::Utf8Value(args[0])));
 	return scope.Close(success);
 }
+Handle<Value> NodeSFMLImage_SaveToFile(const Arguments &args) {
+	HandleScope scope;
+	Handle<Boolean> success = Boolean::New(((sf::Image*)args.Holder()->GetPointerFromInternalField(0))->SaveToFile(*String::Utf8Value(args[0])));
+	return scope.Close(success);
+}
 
 void NodeSFMLSpriteDispose(Persistent<Value> object, void* parameter) {
 	((sf::Sprite*)object->ToObject()->GetPointerFromInternalField(0))->sf::Sprite::~Sprite();
@@ -577,6 +592,7 @@ init (Handle<Object> target)
   NodeSFMLImageTemplateInstanceTemplate->Set("SetPixel", FunctionTemplate::New(NodeSFMLImage_SetPixel));
   NodeSFMLImageTemplateInstanceTemplate->Set("GetPixel", FunctionTemplate::New(NodeSFMLImage_GetPixel));
   NodeSFMLImageTemplateInstanceTemplate->Set("LoadFromFile", FunctionTemplate::New(NodeSFMLImage_LoadFromFile));
+  NodeSFMLImageTemplateInstanceTemplate->Set("SaveToFile", FunctionTemplate::New(NodeSFMLImage_SaveToFile));
   target->Set(String::New("Image"), NodeSFMLImageTemplate->GetFunction());
 
 
@@ -593,6 +609,8 @@ init (Handle<Object> target)
   NodeSFMLRenderWindowTemplateInstanceTemplate->Set("Close", FunctionTemplate::New(NodeSFMLRenderWindow_Close));
   NodeSFMLRenderWindowTemplateInstanceTemplate->Set("Display", FunctionTemplate::New(NodeSFMLRenderWindow_Display));
   NodeSFMLRenderWindowTemplateInstanceTemplate->Set("Draw", FunctionTemplate::New(NodeSFMLRenderWindow_Draw));
+  NodeSFMLRenderWindowTemplateInstanceTemplate->Set("GetHeight", FunctionTemplate::New(NodeSFMLRenderWindow_GetHeight));
+  NodeSFMLRenderWindowTemplateInstanceTemplate->Set("GetWidth", FunctionTemplate::New(NodeSFMLRenderWindow_GetWidth));
   NodeSFMLRenderWindowTemplateInstanceTemplate->Set("IsOpened", FunctionTemplate::New(NodeSFMLRenderWindow_IsOpened));
   target->Set(String::New("RenderWindow"), NodeSFMLRenderWindowTemplate->GetFunction());
 

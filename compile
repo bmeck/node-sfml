@@ -1,6 +1,6 @@
 #!/bin/sh
 echo "Building node-sfml"
-`node-waf clean configure build`
+`node-waf configure build`
 if [ ! -e "./lib" ] ; then
    mkdir lib
 fi

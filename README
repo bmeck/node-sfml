@@ -25,12 +25,32 @@ Status (operator overloading is not supported in v8, so manual checks for equali
  	To be done after all In Progress (may be upgraded if enough tickets arise)
 
 sf::Color - 100%
+
 sf::Image - In Progress
+* Constructors working except from ptr
+* SetPixel / GetPixel working
+* SaveToFile / LoadFromFile working
+
+sf::Sprite - In Progress
+* Constructors Working
+* GetPixel working
+
 sf::Joy - In Progress
 sf::Key - In Progress
+
 sf::Mouse::Buttons - 100%
 sf::Music - 100%
+
 sf::RenderWindow - Delayed
+* Constructors working
+* Clear
+* Close
+* Display
+* Draw
+* GetHeight
+* GetWidth
+* IsOpened
+
 sf::Sound::Status - 100%
 sf::Style - 100%
 sf::VideoMode - 100%
