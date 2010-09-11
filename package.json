@@ -10,9 +10,10 @@
   { "type" : "git"
   , "url" : "http://github.com/bmeck/node-sfml.git"
   }
+  , "directories" : {}
   , "main" : "lib/nodesfml.node"
   , "scripts" : {
-  	"preinstall" : "install"
-  	, "update" : "compile"
+  	"preinstall" : "sh install"
+  	, "update" : "sh compile"
   }
 }

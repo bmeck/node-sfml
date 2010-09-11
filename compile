@@ -1,6 +1,7 @@
-#!/bin/bash
-node-waf clean configure build
-if [ ! -x "./lib" ] ; then
+#!/bin/sh
+echo "Building node-sfml"
+`node-waf clean configure build`
+if [ ! -e "./lib" ] ; then
    mkdir lib
 fi
 cp build/default/* lib/

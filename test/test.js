@@ -1,4 +1,4 @@
-var sfml = require("./../build/default/nodesfml.node")
+var sfml = require("sfml")
 console.log("starting test")
 var img = new sfml.Image(120,60,sfml.Color.Green)
 //img.LoadFromFile("logo.jpg")

@@ -1,0 +1,10 @@
+#!/bin/sh
+echo "Downloading node-sfml source"
+git clone http://github.com/bmeck/node-sfml
+pushd node-sfml
+sh install
+if [ ! `which npm` = "" ] ; then
+   echo "npm found, installing to npm"
+   npm install .
+fi
+popd

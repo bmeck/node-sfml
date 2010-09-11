@@ -395,7 +395,7 @@ Handle<Value> NodeSFMLImage(const Arguments &args) {
 		return scope.Close(ThrowException(Exception::Error(String::New("Must use new operator"))));
 	}
 }
-Handle<Value> NodeSFMLImage_GetPixel(const Arguments &args) {
+/*Handle<Value> NodeSFMLImage_GetPixel(const Arguments &args) {
 	HandleScope scope;
 	sf::Color* c = new sf::Color(((sf::Image*)args.Holder()->GetPointerFromInternalField(0))->GetPixel(
 		args[0]->IsUndefined() ? 0 : args[0]->IntegerValue(),
@@ -404,7 +404,7 @@ Handle<Value> NodeSFMLImage_GetPixel(const Arguments &args) {
 	Handle<Object> jsc = NodeSFMLColorTemplateInstanceTemplate->NewInstance();
 	jsc->SetPointerInInternalField(0,c);
 	return scope.Close(jsc);
-}
+}*/
 Handle<Value> NodeSFMLImage_GetPixel(const Arguments &args) {
 	HandleScope scope;
 	sf::Color* c = new sf::Color(((sf::Image*)args.Holder()->GetPointerFromInternalField(0))->GetPixel(
