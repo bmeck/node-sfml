@@ -69,36 +69,28 @@ if [ ! -e "./sfml" ] ; then
    `/usr/bin/svn checkout "http://sfml.svn.sourceforge.net/svnroot/sfml/tags/1.6" "sfml"`
    cd sfml
    
-   
-   if [ "$platform" != 'darwin' ] ; then
-      echo "Installing External Frameworks"
-      if [ "$processor" = 'x86_64' ] ; then
-         sudo cp extlibs/bin/x86_64/* /Library/Frameworks
-      else
-         sudo cp extlibs/bin/OpenAL.framework /Library/Frameworks
-         sudo cp extlibs/bin/libsndfile.framework /Library/Frameworks
-      fi
-   fi
-   
    echo "Making SFML"
    `make`
-   
-   if [ "$platform" = 'darwin' ] ; then
-      echo "Installing SFML Frameworks"
-      if [ "$processor" = 'x86_64' ] ; then
-         sudo cp lib64/* /Library/Frameworks
-      else
-         sudo cp lib/* /Library/Frameworks
-      fi
-   else
-      echo "Installing SFML"
-      `sudo make install`
-   fi
    cd ..
 else
    echo "sfml already exists, remove directory for a fresh compile"
+   cd sfml
 fi
-cd ..
+
+if [ "$platform" = 'darwin' ] ; then
+   echo "Installing External Frameworks"
+   echo "OpenAL"
+   sudo cp -r extlibs/bin/OpenAL.framework /Library/Frameworks
+   
+   echo "sndfile"
+   if [ "$processor" = 'x86_64' ] ; then
+      sudo cp -r extlibs/bin/x86_64/sndfile.framework /Library/Frameworks
+   else
+      sudo cp -r extlibs/bin/sndfile.framework /Library/Frameworks
+   fi
+fi
+
+cd ../..
 echo "Building node-sfml"
 if [ -e "./build" ] ; then
    node-waf distclean
