@@ -71,7 +71,6 @@ if [ ! -e "./sfml" ] ; then
    
    echo "Making SFML"
    `make`
-   cd ..
 else
    echo "sfml already exists, remove directory for a fresh compile"
    cd sfml
