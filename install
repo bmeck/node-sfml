@@ -29,7 +29,7 @@ if [ "$platform" != 'darwin' ] ; then
    #openal
    if [ ! -e "./openalsoft" ] ; then
       echo "Downloading OpenALSoft source"
-      `/usr/bin/curl -o "./openalsoft.tar.bz2" "http://kcat.strangesoft.net/openal-releases/openal-soft-1.12.854.tar.bz2"`
+      `/usr/bin/curl -o "./openalsoft.tar.bz2" "https://kcat.strangesoft.net/openal-releases/openal-soft-1.12.854.tar.bz2"`
       `tar -xvf "openalsoft.tar.bz2"`
       rm ./*.tar.bz2
       mv openal-soft*/ openalsoft
@@ -66,7 +66,7 @@ fi
 #SFML
 if [ ! -e "./sfml" ] ; then
    echo "Downloading SFML source"
-   `/usr/bin/svn checkout "http://sfml.svn.sourceforge.net/svnroot/sfml/tags/1.6" "sfml"`
+   `/usr/bin/svn checkout "https://sfml.svn.sourceforge.net/svnroot/sfml/tags/1.6" "sfml"`
    cd sfml
    
    
